@@ -13,6 +13,7 @@
                             <input type="text" value="<%= mayor.apellidos %>" class="form-control my-2" name="apellidos">
                             <input type="text" value="<%= mayor.edad %>" class="form-control my-2" name="edad">
                             <input type="text" value="<%= mayor.movil %>" class="form-control my-2" name="movil">
+                            <input type="text" value="<%= mayor.contacto %>" class="form-control my-2" name="contacto">
                             <input type="text" value="<%= mayor.patologias %>" class="form-control my-2" name="patologias">
                             <input type="text" value="<%= mayor.direccion %>" class="form-control my-2" name="direccion">
                             <button class="btn btn-warning btn-sm" type="submit">
@@ -55,7 +56,7 @@
                 const apellidos = formEditar.elements['apellidos'].value
                 const edad = formEditar.elements['edad'].value
                 const movil = formEditar.elements['movil'].value
-                const contacto = formEditar.elements['conacto'].value
+                const contacto = formEditar.elements['contacto'].value
                 const patologias = formEditar.elements['patologias'].value
                 const direccion = formEditar.elements['direccion'].value
                 const id = formEditar.dataset.id
