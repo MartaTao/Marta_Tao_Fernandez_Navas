@@ -1,0 +1,16 @@
+$colorTitulos:#368f3f;
+$colorBtn:#007932;
+$colorFontBtn:#ffff;
+$fontTitulo:'Montserrat';
+$fontTh:'Source Sans Pro';
+h1{
+    color:$colorTitulos;
+    font-family:$fontTitulo ;
+}
+.btn{
+    background-color: $colorBtn;
+    color:$colorFontBtn;
+}
+th{
+    font-family: $fontTh;
+}

@@ -1,0 +1,77 @@
+<%- include("templates/cabecera", {titulo: 'Detalles de la accion' }) %>
+   <div class="container">
+        <h1>Detalles de la accion</h1>
+        <% if (error) { %>
+            <%= mensaje %>
+                <a href="/acciones" class="btn btn-dark btn-block my-2">
+                    Volver
+                </a>
+                <% } %>
+                    <% if (!error) { %>
+                        <form id="editar" data-id="<%= accion.id %>">
+                            <input type="date" value="<%= accion.fecha %>" class="form-control my-2" name="fecha">
+                            <select class="form-control my-2" name="estado">
+                                <option value="Borrador">Borrador</option>
+                                <option value="Programada">Programada</option>
+                                <option value="Realizada">Realizada</option>
+                                <option value="Anulada">Anulada</option>
+                            </select>
+                            <input type="text" value="<%= accion.mayor %>" class="form-control my-2" name="mayor">
+                            <input type="text" value="<%= accion.voluntario %>" class="form-control my-2" name="voluntario">
+                            <button class="btn btn-warning btn-sm" type="submit">
+                                Editar
+                            </button>
+                        </form>
+                        <hr>
+                        <button class="btn btn-danger btn-sm" data-id="<%= accion.id %>">
+                            Eliminar
+                        </button>
+                        <div class="col-6"><a class="btn btn-info btn-sm" href="/acciones">Volver</a></div>
+                        <% } %>
+
+    </div>
+
+    <script>
+        const btnEliminar = document.querySelector('.btn-danger')
+        btnEliminar.addEventListener('click', async () => {
+            console.log(btnEliminar.dataset.id)
+            try {
+                // https://developer.mozilla.org/es/docs/Web/API/HTMLElement/dataset
+                const data = await fetch(`/acciones/${btnEliminar.dataset.id}`, {
+                    method: 'delete'
+                })
+                const res = await data.json()
+                console.log(res)
+                if (res.estado) {
+                    window.location.href = '/acciones'
+                } else {
+                    console.log(res)
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        })
+        const formEditar = document.querySelector('#editar');
+            formEditar.addEventListener('submit', async (e) => {
+                e.preventDefault()
+                const fecha = formEditar.elements['fecha'].value
+                const estado = formEditar.elements['estado'].value
+                const mayor = formEditar.elements['mayor'].value
+                const voluntario = formEditar.elements['voluntario'].value
+                const id = formEditar.dataset.id
+                const data = await fetch(`/acciones/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ fecha, estado, mayor, voluntario})
+                })
+                const res = await data.json()
+                if (res.estado) {
+                    window.location.href = '/acciones'
+                } else {
+                    console.log(res)
+                }
+            })
+</script>
+    <%- include("templates/footer") %>

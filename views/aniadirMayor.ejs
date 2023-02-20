@@ -1,0 +1,18 @@
+<%- include("templates/cabecera.ejs", {titulo:'Añadir nueva persona mayor'}) %>
+    <div class="container">
+        <h1>Añadir nueva persona mayor</h1>
+        <form action="/mayores" class="my-2" method="POST">
+            <input type="text" placeholder="Nombre " class="form-control my-2" name="nombre">
+            <input type="text" placeholder="Apellidos" class="form-control my-2" name="apellidos">
+            <input type="text" placeholder="Edad" class="form-control my-2" name="edad">
+            <input type="text" placeholder="Movil" class="form-control my-2" name="movil">
+            <input type="text" placeholder="Nombre del contacto" class="form-control my-2" name="contacto">
+            <input type="text" placeholder="Patologías" class="form-control my-2" name="patologias">
+            <input type="text" placeholder="Dirección" class="form-control my-2" name="direccion">
+            <button type="submit" class="btn btn-dark btn-block">
+                Agregar
+            </button>
+            <div class="col-6"><a class="btn btn-info btn-block my-4" href="/mayores">Volver</a></div>
+        </form>
+    </div>
+<%- include("templates/footer.ejs") %>

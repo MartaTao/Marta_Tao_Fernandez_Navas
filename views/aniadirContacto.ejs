@@ -1,0 +1,16 @@
+<%- include("templates/cabecera.ejs", {titulo:'Añadir nuevo contacto'}) %>
+    <div class="container">
+        <h1>Añadir nuevo contacto</h1>
+        <form action="/contactos" class="my-2" method="POST">
+            <input type="text" placeholder="Nombre " class="form-control my-2" name="nombre">
+            <input type="text" placeholder="Apellidos" class="form-control my-2" name="apellidos">
+            <input type="text" placeholder="Movil" class="form-control my-2" name="movil">
+            <input type="text" placeholder="Nombre d ela perosna mayor" class="form-control my-2" name="mayor">
+            <input type="text" placeholder="Relación" class="form-control my-2" name="relacion">
+            <button type="submit" class="btn btn-dark btn-block">
+                Agregar
+            </button>
+            <div class="col-6"><a class="btn btn-info btn-block my-4" href="/contactos">Volver</a></div>
+        </form>
+    </div>
+<%- include("templates/footer.ejs") %>

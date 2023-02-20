@@ -1,0 +1,17 @@
+<%- include("templates/cabecera.ejs", {titulo:'Añadir nueva persona voluntaria'}) %>
+    <div class="container">
+        <h1>Añadir nueva persona voluntaria</h1>
+        <form action="/voluntarios" class="my-2" method="POST">
+            <input type="text" placeholder="Nombre " class="form-control my-2" name="nombre">
+            <input type="text" placeholder="Apellidos" class="form-control my-2" name="apellidos">
+            <input type="text" placeholder="Edad" class="form-control my-2" name="edad">
+            <input type="text" placeholder="Movil" class="form-control my-2" name="movil">
+            <input type="text" placeholder="Formación" class="form-control my-2" name="formacion">
+            <input type="text" placeholder="Experiencia" class="form-control my-2" name="experiencia">
+            <button type="submit" class="btn btn-dark btn-block">
+                Agregar
+            </button>
+            <div class="col-6"><a class="btn btn-info btn-block my-4" href="/voluntarios">Volver</a></div>
+        </form>
+    </div>
+<%- include("templates/footer.ejs") %>

@@ -1,0 +1,77 @@
+<%- include("templates/cabecera", {titulo: 'Detalles de la perosna' }) %>
+   <div class="container">
+        <h1>Detalles de la persona</h1>
+        <% if (error) { %>
+            <%= mensaje %>
+                <a href="/mayores" class="btn btn-dark btn-block my-2">
+                    Volver
+                </a>
+                <% } %>
+                    <% if (!error) { %>
+                        <form id="editar" data-id="<%= mayor.id %>">
+                            <input type="text" value="<%= mayor.nombre %>" class="form-control my-2" name="nombre">
+                            <input type="text" value="<%= mayor.apellidos %>" class="form-control my-2" name="apellidos">
+                            <input type="text" value="<%= mayor.edad %>" class="form-control my-2" name="edad">
+                            <input type="text" value="<%= mayor.movil %>" class="form-control my-2" name="movil">
+                            <input type="text" value="<%= mayor.patologias %>" class="form-control my-2" name="patologias">
+                            <input type="text" value="<%= mayor.direccion %>" class="form-control my-2" name="direccion">
+                            <button class="btn btn-warning btn-sm" type="submit">
+                                Editar
+                            </button>
+                        </form>
+                        <hr>
+                        <button class="btn btn-danger btn-sm" data-id="<%= mayor.id %>">
+                            Eliminar
+                        </button>
+                        <div class="col-6"><a class="btn btn-info btn-sm" href="/mayores">Volver</a></div>
+                        <% } %>
+
+    </div>
+
+    <script>
+        const btnEliminar = document.querySelector('.btn-danger')
+        btnEliminar.addEventListener('click', async () => {
+            console.log(btnEliminar.dataset.id)
+            try {
+                // https://developer.mozilla.org/es/docs/Web/API/HTMLElement/dataset
+                const data = await fetch(`/mayores/${btnEliminar.dataset.id}`, {
+                    method: 'delete'
+                })
+                const res = await data.json()
+                console.log(res)
+                if (res.estado) {
+                    window.location.href = '/mayores'
+                } else {
+                    console.log(res)
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        })
+        const formEditar = document.querySelector('#editar');
+            formEditar.addEventListener('submit', async (e) => {
+                e.preventDefault()
+                const nombre = formEditar.elements['nombre'].value
+                const apellidos = formEditar.elements['apellidos'].value
+                const edad = formEditar.elements['edad'].value
+                const movil = formEditar.elements['movil'].value
+                const contacto = formEditar.elements['conacto'].value
+                const patologias = formEditar.elements['patologias'].value
+                const direccion = formEditar.elements['direccion'].value
+                const id = formEditar.dataset.id
+                const data = await fetch(`/mayores/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ nombre, apellidos, edad, movil, contacto,patologias, direccion })
+                })
+                const res = await data.json()
+                if (res.estado) {
+                    window.location.href = '/mayores'
+                } else {
+                    console.log(res)
+                }
+            })
+</script>
+    <%- include("templates/footer") %>

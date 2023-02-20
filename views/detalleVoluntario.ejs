@@ -1,0 +1,75 @@
+<%- include("templates/cabecera", {titulo: 'Detalles de la perosna' }) %>
+   <div class="container">
+        <h1>Detalles de la persona</h1>
+        <% if (error) { %>
+            <%= mensaje %>
+                <a href="/voluntarios" class="btn btn-dark btn-block my-2">
+                    Volver
+                </a>
+                <% } %>
+                    <% if (!error) { %>
+                        <form id="editar" data-id="<%= voluntario.id %>">
+                            <input type="text" value="<%= voluntario.nombre %>" class="form-control my-2" name="nombre">
+                            <input type="text" value="<%= voluntario.apellidos %>" class="form-control my-2" name="apellidos">
+                            <input type="text" value="<%= voluntario.edad %>" class="form-control my-2" name="edad">
+                            <input type="text" value="<%= voluntario.movil %>" class="form-control my-2" name="movil">
+                            <input type="text" value="<%= voluntario.formacion %>" class="form-control my-2" name="formacion">
+                            <input type="text" value="<%= voluntario.experiencia %>" class="form-control my-2" name="experiencia">
+                            <button class="btn btn-warning btn-sm" type="submit">
+                                Editar
+                            </button>
+                        </form>
+                        <hr>
+                        <button class="btn btn-danger btn-sm" data-id="<%= voluntario.id %>">
+                            Eliminar
+                        </button>
+                        <div class="col-6"><a class="btn btn-info btn-sm" href="/voluntarios">Volver</a></div>
+                        <% } %>
+
+    </div>
+
+    <script>
+        const btnEliminar = document.querySelector('.btn-danger')
+        btnEliminar.addEventListener('click', async () => {
+            console.log(btnEliminar.dataset.id)
+            try {
+                const data = await fetch(`/voluntarios/${btnEliminar.dataset.id}`, {
+                    method: 'delete'
+                })
+                const res = await data.json()
+                console.log(res)
+                if (res.estado) {
+                    window.location.href = '/voluntarios'
+                } else {
+                    console.log(res)
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        })
+        const formEditar = document.querySelector('#editar');
+            formEditar.addEventListener('submit', async (e) => {
+                e.preventDefault()
+                const nombre = formEditar.elements['nombre'].value
+                const apellidos = formEditar.elements['apellidos'].value
+                const edad = formEditar.elements['edad'].value
+                const movil = formEditar.elements['movil'].value
+                const formacion = formEditar.elements['formacion'].value
+                const experiencia = formEditar.elements['experiencia'].value
+                const id = formEditar.dataset.id
+                const data = await fetch(`/voluntarios/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ nombre, apellidos, edad, movil, formacion, experiencia })
+                })
+                const res = await data.json()
+                if (res.estado) {
+                    window.location.href = '/voluntarios'
+                } else {
+                    console.log(res)
+                }
+            })
+</script>
+    <%- include("templates/footer") %>

@@ -1,0 +1,20 @@
+<%- include("templates/cabecera.ejs", {titulo:'Añadir nueva accion'}) %>
+    <div class="container">
+        <h1>Añadir nueva accion</h1>
+        <form action="/acciones" class="my-2" method="POST">
+            <input type="date" placeholder="Fecha " class="form-control my-2" name="fecha">
+            <select class="form-control my-2" name="estado">
+                <option value="Borrador">Borrador</option>
+                <option value="Programada">Programada</option>
+                <option value="Realizada">Realizada</option>
+                <option value="Anulada">Anulada</option>
+            </select>
+            <input type="text" placeholder="Nombre de la persona mayor" class="form-control my-2" name="mayor">
+            <input type="text" placeholder="Nombre del voluntario" class="form-control my-2" name="voluntario">
+            <button type="submit" class="btn btn-dark btn-block">
+                Agregar
+            </button>
+            <div class="col-6"><a class="btn btn-info btn-block my-4" href="/acciones">Volver</a></div>
+        </form>
+    </div>
+<%- include("templates/footer.ejs") %>

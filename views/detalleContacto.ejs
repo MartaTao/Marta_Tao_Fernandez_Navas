@@ -1,0 +1,74 @@
+<%- include("templates/cabecera", {titulo: 'Detalles del contacto' }) %>
+   <div class="container">
+        <h1>Detalles del contacto</h1>
+        <% if (error) { %>
+            <%= mensaje %>
+                <a href="/contactos" class="btn btn-dark btn-block my-2">
+                    Volver
+                </a>
+                <% } %>
+                    <% if (!error) { %>
+                        <form id="editar" data-id="<%= contacto.id %>">
+                            <input type="text" value="<%= contacto.nombre %>" class="form-control my-2" name="nombre">
+                            <input type="text" value="<%= contacto.apellidos %>" class="form-control my-2" name="apellidos">
+                            <input type="text" value="<%= contacto.movil %>" class="form-control my-2" name="movil">
+                            <input type="text" value="<%= contacto.mayor %>" class="form-control my-2" name="mayor">
+                            <input type="text" value="<%= contacto.relacion %>" class="form-control my-2" name="relacion">
+                            <button class="btn btn-warning btn-sm" type="submit">
+                                Editar
+                            </button>
+                        </form>
+                        <hr>
+                        <button class="btn btn-danger btn-sm" data-id="<%= contacto.id %>">
+                            Eliminar
+                        </button>
+                        <div class="col-6"><a class="btn btn-sm" href="/contactos">Volver</a></div>
+                        <% } %>
+
+    </div>
+
+    <script>
+        const btnEliminar = document.querySelector('.btn-danger')
+        btnEliminar.addEventListener('click', async () => {
+            console.log(btnEliminar.dataset.id)
+            try {
+                // https://developer.mozilla.org/es/docs/Web/API/HTMLElement/dataset
+                const data = await fetch(`/contactos/${btnEliminar.dataset.id}`, {
+                    method: 'delete'
+                })
+                const res = await data.json()
+                console.log(res)
+                if (res.estado) {
+                    window.location.href = '/contactos'
+                } else {
+                    console.log(res)
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        })
+        const formEditar = document.querySelector('#editar');
+            formEditar.addEventListener('submit', async (e) => {
+                e.preventDefault()
+                const nombre = formEditar.elements['nombre'].value
+                const apellidos = formEditar.elements['apellidos'].value
+                const movil = formEditar.elements['movil'].value
+                const mayor = formEditar.elements['mayor'].value
+                const relacion = formEditar.elements['relacion'].value
+                const id = formEditar.dataset.id
+                const data = await fetch(`/contactos/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ nombre, apellidos, movil, mayor, relacion })
+                })
+                const res = await data.json()
+                if (res.estado) {
+                    window.location.href = '/contactos'
+                } else {
+                    console.log(res)
+                }
+            })
+</script>
+    <%- include("templates/footer") %>

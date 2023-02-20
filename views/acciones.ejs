@@ -1,0 +1,47 @@
+<%- include("templates/cabecera.ejs", {titulo:'Acciones'}) %>
+<div class="container">
+    <h1>Acciones</h1>
+    <div class="row">
+        <div class="col-6"><a class="btn btn-info btn-block my-4" href="/acciones/aniadirAccion">Añadir accion</a></div>
+        <div class="col-6"><a class="btn btn-info btn-block my-4" href="/">Volver</a></div>
+    </div>
+    <table class="table">
+       <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Mayor</th>
+                <th scope="col">Voluntario</th>
+                <th scope="col">Acción</th>
+            </tr>
+       </thead>
+       <tbody>
+            <%if(arrayAcciones.length>0){%>
+                    <%arrayAcciones.forEach(acciones=> { %>
+                        <tr>
+                            <th scope="row">
+                                <%= acciones.id %>
+                            </th>
+                            <td>
+                                <%= acciones.fecha %>
+                            </td>
+                            <td>
+                                <%= acciones.estado%>
+                            </td>
+                            <td>
+                                <%= acciones.mayor %>
+                            </td>
+                            <td>
+                                <%= acciones.voluntario %>
+                            </td>
+                            <td>
+                                <a class="btn btn-info btn-sm" href="acciones/<%= acciones.id %>">Editar/Eliminar</a>
+                            </td>
+                        </tr>
+                        <% }) %>
+           <% }%>
+       </tbody>
+    </table>
+</div>
+<%- include("templates/footer.ejs") %>

@@ -1,0 +1,59 @@
+<%- include("templates/cabecera.ejs", {titulo:'Mayores'}) %>
+<div class="container">
+    <h1>Mayores</h1>
+    <div class="row">
+        <div class="col-6"><a class="btn btn-info btn-block my-4" href="/mayores/aniadirMayor">Añadir persona mayor</a></div>
+        <div class="col-6"><a class="btn btn-info btn-block my-4" href="/">Volver</a></div>
+    </div>
+    <table class="table">
+       <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellidos</th>
+                <th scope="col">Edad</th>
+                <th scope="col">Movil</th>
+                <th scope="col">Contacto</th>
+                <th scope="col">Patologías</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">Acción</th>
+            </tr>
+       </thead>
+       <tbody>
+            <%if(arrayMayores.length>0){%>
+                    <%arrayMayores.forEach(mayores=> { %>
+                        <tr>
+                            <th scope="row">
+                                <%= mayores.id %>
+                            </th>
+                            <td>
+                                <%= mayores.nombre %>
+                            </td>
+                            <td>
+                                <%= mayores.apellidos%>
+                            </td>
+                            <td>
+                                <%= mayores.edad %>
+                            </td>
+                            <td>
+                                <%= mayores.movil %>
+                            </td>
+                            <td>
+                                <%= mayores.conacto %>
+                            </td>
+                            <td>
+                                <%= mayores.patologias%>
+                            </td>
+                            <td>
+                                <%= mayores.direccion%>
+                            </td>
+                            <td>
+                                <a class="btn btn-info btn-sm" href="mayores/<%= mayores.id %>">Editar/Eliminar</a>
+                            </td>
+                        </tr>
+                        <% }) %>
+           <% }%>
+       </tbody>
+    </table>
+</div>
+<%- include("templates/footer.ejs") %>
